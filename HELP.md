@@ -1,10 +1,12 @@
-# Getting Started
+# 大文件拷贝程序
 
-### Reference Documentation
-For further reference, please consider the following sections:
+### 运行方式
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.4.5/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.4.5/maven-plugin/reference/html/#build-image)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/2.4.5/reference/htmlsingle/#using-boot-devtools)
+## 1.快捷键
+### mac/idea ctrl+R
+### windows/idea 右键绿三角
+## 2.命令
+###mvn compile
+###mvn exec:java -Dexec.mainClass="com.example.demo.CopyFileServerApplication"
 
+ 

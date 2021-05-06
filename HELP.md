@@ -6,7 +6,7 @@
 ### mac/idea ctrl+R
 ### windows/idea 右键绿三角
 ## 2.命令
-###mvn compile
-###mvn exec:java -Dexec.mainClass="com.example.demo.CopyFileServerApplication"
+### mvn compile
+### mvn exec:java -Dexec.mainClass="com.example.demo.CopyFileServerApplication"
 
  

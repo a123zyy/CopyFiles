@@ -21,7 +21,6 @@ public class CopyFile extends Thread {
     @Override
     public void run() {
         try {
-            long beginTime = System.currentTimeMillis();
             //创建只读的随机访问数
             RandomAccessFile in = new RandomAccessFile(srcPath,"r");
             //创建可读可写的随机访问文件
@@ -42,8 +41,6 @@ public class CopyFile extends Thread {
             out.close();
             in.close();
             //计算耗时
-            long endTime = System.currentTimeMillis();
-            System.out.println(Thread.currentThread().getName()+"-结束时间:"+endTime+"-共用时长:"+(endTime-beginTime)+"ms");
         } catch (IOException e) {
             e.printStackTrace();
         }

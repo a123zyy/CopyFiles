@@ -6,6 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -15,6 +19,9 @@ import java.util.concurrent.TimeUnit;
 class DemoApplicationTests {
     private static int blockCount = 12;
 
+    public final static String srcPath = "/Users/zyy/Downloads/day14installpkg.zip";
+    public final static String destPath = "/Users/zyy/Desktop/文档/day14installpkg.zip";
+
 
 
     /**
@@ -23,8 +30,6 @@ class DemoApplicationTests {
      * */
     @Test
     void contextLoads() {
-        String srcPath = "";
-        String destPath = "";
         Assert.check(!srcPath.equals(""), "源文件不能为null");
         Assert.check(!destPath.equals(""), "目标文件不能为null");
         File soure = new File(srcPath);
@@ -41,8 +46,6 @@ class DemoApplicationTests {
     //线程池方式
     @Test
     void contextLoads1() {
-        String srcPath = "";
-        String destPath = "";
         Assert.check(!srcPath.equals(""), "源文件不能为null");
         Assert.check(!destPath.equals(""), "目标文件不能为null");
         File soure = new File(srcPath);
@@ -60,4 +63,21 @@ class DemoApplicationTests {
         new CopyFile(srcPath, destPath, oneNum * (blockCount - 1), len).start();
     }
 
+    // 零拷贝 不占用虚拟机内存 使用堆外内存
+    @Test
+    public void contextLoads2() {
+        Assert.check(!srcPath.equals(""), "源文件不能为null");
+        Assert.check(!destPath.equals(""), "目标文件不能为null");
+        long startTime = System.currentTimeMillis();
+        try (FileChannel sourceChannel = new FileInputStream(srcPath).getChannel();
+             FileChannel destChannel = new FileOutputStream(destPath).getChannel();) {
+            destChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        long endTime = System.currentTimeMillis();
+        // copyFileUsingFileChannel total execution time: 18842ms
+        System.out.println("copyFileUsingFileChannel total execution time: "
+                + (endTime - startTime) + "ms");
+    }
 }
